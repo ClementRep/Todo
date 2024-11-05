@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>To-do List</h1>
+    <ul>
+        <% tasks.forEach(task=>{ %>
+            <li><%= task %></li>
+            <%}); %>
+    </ul>
+
+    <form action="/add" method="post">
+
+        <input type="text" name="task" placeholder="add a new task" required>
+        <button type="submit">add task</button>
+    </form>
+</body>
+</html>
