@@ -4,74 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
-<style>
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(235, 49, 2, 0.836);
-}
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(235, 49, 2, 0.836);
+        }
 
-h1{
-    text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
+        h1 {
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
 
+        input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-input[type="text"] {
-    width: 80%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        button[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
 
-button[type="submit"] {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-}
+        button[type="submit"]:hover {
+            background-color: #e61111;
+        }
 
-button[type="submit"]:hover{
-    background-color: #e61111;
-}
+        ul {
+            padding: 0;
+            list-style-type: none;
+        }
 
-ul li {
-cursor: pointer;
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 11px 10px 8px 40px;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s;
+            list-style-type: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-  position: relative;
-  padding: 11px 10px 8px 40px;
-  background: #eee;
-  font-size: 18px;
-  transition: 0.2s;
-  list-style-type:none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-ul li:nth-child(odd) {
-  background: #f9f9f9;
-}
-</style>
+        ul li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        .delete-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
 </head>
 <body>
     <h1>To-do List</h1>
-      
+    
     <div class="container">
-    <ul>
-            <% tasks.forEach(task => { %>
-                <li><%= task %></li>
+        <ul>
+            <% tasks.forEach((task, index) => { %>
+                <li>
+                    <P><%= task %></P>
+                    <form action="/remove" method="post">
+                        <input type="hidden" name="task" value="<%= task %>"> 
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </li>
             <% }); %>
-
         </ul>
-
+        
         <form action="/add" method="post">
             <input type="text" id="txtInput" name="task" placeholder="Add a new task" required>
             <button type="submit">Add Task</button>
