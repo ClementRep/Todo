@@ -80,18 +80,20 @@
         .delete-btn:hover {
             background: darkred;
         }
+
+
     </style>
 </head>
 <body>
     <h1>To-do List</h1>
-    
+
     <div class="container">
-        <ul>
+        <ul id="List">
             <% tasks.forEach((task, index) => { %>
                 <li>
-                    <P><%= task %></P>
+                    <p><%= task.description %> - <%= task.time %></p>
                     <form action="/remove" method="post">
-                        <input type="hidden" name="task" value="<%= task %>"> 
+                        <input type="hidden" name="task" value="<%= task.description %>"> 
                         <button type="submit" class="delete-btn">Delete</button>
                     </form>
                 </li>
@@ -99,9 +101,25 @@
         </ul>
         
         <form action="/add" method="post">
-            <input type="text" id="txtInput" name="task" placeholder="Add a new task" required>
+            <input type="text" id="txtInput" name="task" placeholder="Add a new task" required pattern=".*\S.*">
+            <input type="datetime-local" id="taskTime" name="time" required>
             <button type="submit">Add Task</button>
         </form>
     </div>
+<script>
+
+    const tasks=document.querySelectorAll("#List li");
+ 
+
+    tasks.forEach((task)=>{
+        task.addEventListener("click", function() {
+  if (task.style.textDecoration === "line-through") {
+    task.style.textDecoration = "none"; 
+  } else if(task.style.textDecoration ="line-through") { 
+        task.style.textDecorationthickness="5px";
+  }
+});
+});
+    </script>
 </body>
 </html>

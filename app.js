@@ -10,20 +10,20 @@ app.use(express.urlencoded({ extended: true }));
 let tasks = [];
 
 app.get('/', (req, res) => {
-    res.render('index', { tasks });  // Render the tasks on the index page
+    res.render('index', { tasks });  
 });
 
 app.post('/add', (req, res) => {
-    const { task } = req.body;  
-    tasks.push(task);  // Add new task to the tasks array
-    res.redirect('/');  // Redirect back to home
+    const { task, time } = req.body;  // Destructure the task and time from the body
+    const taskTime = new Date(time).toLocaleString(); // Format the time to a readable string
+    tasks.push({ description: task, time: taskTime });  // Add both task and time as an object
+    res.redirect('/');  
 });
 
 app.post('/remove', (req, res) => {
-    const taskToRemove = req.body.task;  // Get the task to remove from the form input
-    tasks = tasks.filter(task => task !== taskToRemove);  // Filter out the task
-    res.redirect('/');  // Redirect back to the home page
+    const taskToRemove = req.body.task;  
+    tasks = tasks.filter(task => task.description !== taskToRemove);  // Filter based on task description
+    res.redirect('/');  
 });
 
-// Start the server
 app.listen(port, () => console.log(`Server is running on port ${port}`));
