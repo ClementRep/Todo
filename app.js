@@ -25,17 +25,17 @@ setInterval(() => {
         const taskTime = new Date(task.time);
         
         if (taskTime - now <= 600000 && taskTime - now > 0 && !task.reminded) {
-            sendReminder(task.description, task.time);
+            sendReminder(task.description, task.time,task.mail);
             task.reminded = true; 
         }
     });
 }, 60000);  
 
 // Function to send email reminders
-function sendReminder(taskDescription, taskTime) {
+function sendReminder(taskDescription, taskTime,mail) {
     const mailOptions = {
         from: 'tshwaraganangmaimane25@gmail.com',             // Replace with your email
-        to: 'ntlahlapikwa80@gmail.com',          
+        to: mail,          
         subject: 'Task Reminder',
         text: `Reminder: Your task "${taskDescription}" is due at ${taskTime}.`
     };
