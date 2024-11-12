@@ -34,7 +34,7 @@ setInterval(() => {
 // Function to send email reminders
 function sendReminder(taskDescription, taskTime) {
     const mailOptions = {
-        from: 'tshwaraganangmaimane25@gmail.com',             // Replace with your email
+        from: 'tshwaraganangmaimane25@gmail.com',
         to: '',          
         subject: 'Task Reminder',
         text: `Reminder: Your task "${taskDescription}" is due at ${taskTime}.`
@@ -62,7 +62,7 @@ app.post('/add', (req, res) => {
 });
 
 app.post('/remove', (req, res) => {
-    const taskToRemove = req.body.task;  
+    const taskToRemove = req.body.task;
     tasks = tasks.filter(task => task.description !== taskToRemove); 
     res.redirect('/');  
 });
