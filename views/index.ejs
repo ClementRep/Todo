@@ -26,8 +26,7 @@
 
         h1 {
             text-align: center;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
+            font-family: "Britannic Bold";}
 
         input[type="text"] {
             width: 80%;
@@ -38,7 +37,7 @@
         }
 
         input[type="email"] {
-            width: 40%;
+            width: 50%;
             padding: 8px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -149,7 +148,8 @@
 
         <form action="/add" method="post">
             <input type="text" id="txtInput" name="task"  placeholder="Add a new task" required pattern=".*\S.*">
-            <input type="datetime-local" id="taskTime" name="time" required>
+            <br>
+           <br> <input type="datetime-local" id="taskTime" name="time" required> &nbsp; &nbsp;
             <input type="email"  id="email" name="mail"  placeholder="enter your email">(optional) &nbsp;
             <button type="submit">Add Task</button>
         </form>
