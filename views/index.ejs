@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
+    <title>To Do List</title>;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
     <style>
@@ -37,6 +37,14 @@
             border-radius: 4px;
         }
 
+        input[type="email"] {
+            width: 40%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
         button[type="submit"] {
             background-color: #3498db;
             color: white;
@@ -49,7 +57,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #e61111;
+            background-color: #d1896b;
         }
 
         ul {
@@ -60,7 +68,7 @@
         ul li {
             cursor: pointer;
             position: relative;
-            padding: 11px 10px 8px 40px;
+            padding: 11px 25px 8px 60px;
             background: #eee;
             font-size: 18px;
             transition: 0.2s;
@@ -92,24 +100,45 @@
             background: darkred;
         }
 
-        #background-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-     /* Ensures it stays in the background */
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
         }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #bd8f7e;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;  /* Position above the text */
+            left: 50%;
+            margin-left: -80px;  /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: .9;
+        }
+
     </style>
 </head>
 <body>
     <h1>To-do List</h1>
 
-    <canvas id="background-canvas"></canvas>
-
     <div class="container">
         <ul id="List">
             <% tasks.forEach((task, index) => { %>
                 <li>
+                    <div class="tooltip">
                     <p><%= task.description %> - <%= task.time %></p>
+                        <span class="tooltiptext">Click The Task to Cancel Out completed Task</span>
+                    </div>
                     <form action="/remove" method="post">
                         <input type="hidden" name="task" value="<%= task.description %>"> 
                         <button type="submit" class="delete-btn">Delete</button>
@@ -117,18 +146,17 @@
                 </li>
             <% }); %>
         </ul>
-        
+
         <form action="/add" method="post">
-            <input type="text" id="txtInput" name="task" placeholder="Add a new task" required pattern=".*\S.*">
-           <!--
-             <input type="email"  id="email" name="mail"  placeholder="enter your email">-->
+            <input type="text" id="txtInput" name="task"  placeholder="Add a new task" required pattern=".*\S.*">
             <input type="datetime-local" id="taskTime" name="time" required>
+            <input type="email"  id="email" name="mail"  placeholder="enter your email">(optional) &nbsp;
             <button type="submit">Add Task</button>
         </form>
     </div>
 
     <script>
-    const tasks=document.querySelectorAll("#List li");
+    const tasks=document.querySelectorAll("#List li .tooltip");
 
     tasks.forEach((task)=>{
         task.addEventListener("click", function() {
