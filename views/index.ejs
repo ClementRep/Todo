@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
+    <title>To Do List</title>;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
     <style>
+
+        body{
+            background-size: cover;
+            background: linear-gradient(to right, rgba(255, 95, 95, 0.7), rgba(123, 145, 254, 0.99));
+            z-index: 1;
+            margin: 0;
+        }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -16,11 +26,18 @@
 
         h1 {
             text-align: center;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
+            font-family: "Britannic Bold";}
 
         input[type="text"] {
             width: 80%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="email"] {
+            width: 50%;
             padding: 8px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -34,11 +51,12 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
+            margin: 5px;
             border-radius: 4px;
         }
 
         button[type="submit"]:hover {
-            background-color: #e61111;
+            background-color: #d1896b;
         }
 
         ul {
@@ -49,7 +67,7 @@
         ul li {
             cursor: pointer;
             position: relative;
-            padding: 11px 10px 8px 40px;
+            padding: 11px 25px 8px 60px;
             background: #eee;
             font-size: 18px;
             transition: 0.2s;
@@ -81,26 +99,45 @@
             background: darkred;
         }
 
-        #background-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Ensures it stays in the background */
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
         }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #bd8f7e;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;  /* Position above the text */
+            left: 50%;
+            margin-left: -80px;  /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: .9;
+        }
+
     </style>
 </head>
 <body>
     <h1>To-do List</h1>
 
-    <canvas id="background-canvas"></canvas>
-
     <div class="container">
         <ul id="List">
             <% tasks.forEach((task, index) => { %>
                 <li>
+                    <div class="tooltip">
                     <p><%= task.description %> - <%= task.time %></p>
+                        <span class="tooltiptext">Click The Task to Cancel Out completed Task</span>
+                    </div>
                     <form action="/remove" method="post">
                         <input type="hidden" name="task" value="<%= task.description %>"> 
                         <button type="submit" class="delete-btn">Delete</button>
@@ -108,58 +145,24 @@
                 </li>
             <% }); %>
         </ul>
-        
+
         <form action="/add" method="post">
-            <input type="text" id="txtInput" name="task" placeholder="Add a new task" required pattern=".*\S.*">
-            <input type="email"  id="email" name="mail"  placeholder="enter your email">
-            <input type="datetime-local" id="taskTime" name="time" required>
+            <input type="text" id="txtInput" name="task"  placeholder="Add a new task" required pattern=".*\S.*">
+            <br>
+           <br> <input type="datetime-local" id="taskTime" name="time" required> &nbsp; &nbsp;
+            <input type="email"  id="email" name="mail"  placeholder="enter your email">(optional) &nbsp;
             <button type="submit">Add Task</button>
         </form>
     </div>
 
-    <script type="module">
-        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
-        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/loaders/GLTFLoader.js';
-      
-        // Scene, Camera, Renderer Setup
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 5, 2000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("background-canvas") });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      
-        // Load the 3D Model
-        const loader = new GLTFLoader();
-        loader.load('ganymede_moon.glb', (gltf) => {
-            const model = gltf.scene;
-            scene.add(model);
-            model.position.set(0, 0, 0); 
-      
-            function animate() {
-                requestAnimationFrame(animate);
-                model.rotation.y += 0.001; 
-                renderer.render(scene, camera);
-            }
-            animate();
-        }, undefined, (error) => {
-            console.error('An error happened while loading the model:', error);
-        });
-      
-        camera.position.z = 5;
-      
-        // Update Renderer and Camera on Window Resize
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
-   
-    const tasks=document.querySelectorAll("#List li");
+    <script>
+    const tasks=document.querySelectorAll("#List li .tooltip");
 
     tasks.forEach((task)=>{
         task.addEventListener("click", function() {
   if (task.style.textDecoration === "line-through") {
     task.style.textDecoration = "none"; 
-  } else if(task.style.textDecoration ="line-through") { 
+  } else if(task.style.textDecoration ="line-through") {
         task.style.textDecorationthickness="5px";
   }
 });

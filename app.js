@@ -10,6 +10,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 let tasks = [];
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -23,19 +24,18 @@ setInterval(() => {
     const now = new Date();
     tasks.forEach(task => {
         const taskTime = new Date(task.time);
-        
         if (taskTime - now <= 600000 && taskTime - now > 0 && !task.reminded) {
             sendReminder(task.description, task.time,task.mail);
             task.reminded = true; 
         }
     });
-}, 60000);  
+}, 60000);
 
 // Function to send email reminders
-function sendReminder(taskDescription, taskTime) {
+function sendReminder(taskDescription, taskTime,taskmail) {
     const mailOptions = {
-        from: 'tshwaraganangmaimane25@gmail.com',             // Replace with your email
-        to: '',          
+        from: 'tshwaraganangmaimane25@gmail.com',
+        to: taskmail,
         subject: 'Task Reminder',
         text: `Reminder: Your task "${taskDescription}" is due at ${taskTime}.`
     };
@@ -50,19 +50,19 @@ function sendReminder(taskDescription, taskTime) {
 }
 
 app.get('/', (req, res) => {
-    res.render('index', { tasks });  
+    res.render('index', { tasks });
 });
 
 
 app.post('/add', (req, res) => {
-    const { task, time } = req.body; 
+    const { task, time ,mail} = req.body;
     const taskTime = new Date(time).toLocaleString(); 
-    tasks.push({ description: task, time: taskTime });  
+    tasks.push({ description: task, time: taskTime ,mail:mail});
     res.redirect('/');  
 });
 
 app.post('/remove', (req, res) => {
-    const taskToRemove = req.body.task;  
+    const taskToRemove = req.body.task;
     tasks = tasks.filter(task => task.description !== taskToRemove); 
     res.redirect('/');  
 });
