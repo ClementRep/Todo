@@ -1,0 +1,87 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container for tasks */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Title Styling */
+h1 {
+    color: #333;
+}
+
+/* Task List Styling */
+ul {
+    l
+    padding: 0;
+    margin: 0;
+}
+
+.task-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.task-item:hover {
+    background-color: #f1f1f1;
+}
+
+.remove-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Styling the Add Task form */
+form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}

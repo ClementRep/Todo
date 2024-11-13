@@ -1,0 +1,69 @@
+# To-Do List Application
+
+A simple To-Do List application built with **Node.js** and **Express** that allows users to add, view, and delete tasks. Each task can include a description and a specific due date and time.
+
+## Features
+
+- **Add New Tasks**: Users can enter a task description and set a specific date and time for each task.
+- **View All Tasks**: All tasks are displayed in a list, showing both the task description and its due date/time.
+- **Delete Tasks**: Users can delete tasks from the list once they're completed.
+
+## Technologies Used
+
+- **Node.js**: Server-side JavaScript runtime.
+- **Express**: Fast, minimalist web framework for Node.js.
+- **EJS**: Embedded JavaScript templating for rendering dynamic content on the page.
+- **HTML & CSS**: For basic structure and styling.
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have **Node.js** and **npm** installed. You can download them from [Node.js official website](https://nodejs.org/).
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/clementsrep/todo.git
+   cd todo
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the application**:
+   ```bash
+   node app.js
+   ```
+   The app will be running at `http://localhost:3000`.
+
+## Usage
+
+1. Open the app in your browser by going to `http://localhost:3000`.
+2. **Add a Task**: Enter a task description and select a date and time, then click "Add Task."
+3. **View Tasks**: All tasks, along with their due dates, will be listed on the main page.
+4. **Delete a Task**: Click the "Delete" button next to any task to remove it from the list.
+
+## Project Structure
+
+```
+├── views
+│   └── index.ejs         # Main HTML file rendered by EJS
+├── app.js                # Main server file
+├── package.json          # Dependencies and scripts
+└── README.md             # Project documentation
+```
+
+- **app.js**: Sets up the Express server, handles routes for adding and removing tasks, and serves the main task list.
+- **index.ejs**: Template for the main page, where users can view, add, and delete tasks.
+
+## Future Improvements
+
+- **Add Task Editing**: Allow users to edit existing tasks.
+- **Task Prioritization**: Implement task priorities (e.g., high, medium, low).
+- **Persistent Storage**: Save tasks to a database so they aren’t lost on server restart.
+
+
