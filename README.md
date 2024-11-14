@@ -1,5 +1,5 @@
 # To-Do List Application
-
+![Screenshot (80)](https://github.com/user-attachments/assets/210219df-a6c7-4b67-970e-37248027ab7e)
 A simple and efficient To-Do List application built using Node.js, allowing users to create, read, update, and delete tasks.
 
 ## Table of Contents
@@ -40,6 +40,11 @@ A simple and efficient To-Do List application built using Node.js, allowing user
    ```bash
    npm start
    ```
+
+## screenshots
+   - ![Screenshot (78)](https://github.com/user-attachments/assets/2d4c44d9-c714-4a9c-8920-485f2e416979)
+![Screenshot (75)](https://github.com/user-attachments/assets/eda5a6e8-2c21-4e5a-8215-edd7badadea0)
+![Screenshot (74)](https://github.com/user-attachments/assets/c5cdd419-864d-43e3-b000-953303d64657)
 
 ## Usage
 
